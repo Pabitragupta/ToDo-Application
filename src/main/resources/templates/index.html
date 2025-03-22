@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Task App</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Task List</h1>
+
+    <form action="/add" method="post">
+        <input type="text" name="title" class="form-control mt-3" placeholder="Enter task title" required>
+        <button type="submit" class="btn btn-primary mt-3">Add Task</button>
+    </form>
+
+    <h1>html</h1>
+    <ul class="list-group mt-5">
+        <li class="list-group-item" th:each="task : ${tasks}">
+            <div class="d-flex justify-content-between">
+                <span th:text="${task.title}"></span>
+                <span>
+                    <form action="/toggleComplete/{task.id}" method="post" th:action="@{/toggleComplete/{id}(id=${task.id})}">
+                        <button type="submit" class="btn btn-info">
+                            <span th:text="${task.complete ? 'Undo' : 'Complete'}"></span>
+                        </button>
+                    </form>
+                    <form action="/delete/{task.id}" method="post" th:action="@{/delete/{id}(id=${task.id})}">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </span>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
