@@ -2,35 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Task App</title>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
+
 <body>
-<div class="container">
-    <h1 class="mt-5">Task List</h1>
+    <center>
+        <div class="container">
+            <h1 class="mt-4">Task List</h1>
 
-    <form action="/add" method="post">
-        <input type="text" name="title" class="form-control mt-3" placeholder="Enter task title" required>
-        <button type="submit" class="btn btn-primary mt-3">Add Task</button>
-    </form>
+            <!-- Task Input Form -->
+            <form action="/add" method="post" class="mt-3">
+                <input type="text" name="title" class="form-control" placeholder="Enter task title" required>
+                <button type="submit" class="btn btn-primary mt-3">Add Task</button>
+            </form>
 
-    <h1>html</h1>
-    <ul class="list-group mt-5">
-        <li class="list-group-item" th:each="task : ${tasks}">
-            <div class="d-flex justify-content-between">
-                <span th:text="${task.title}"></span>
-                <span>
-                    <form action="/toggleComplete/{task.id}" method="post" th:action="@{/toggleComplete/{id}(id=${task.id})}">
-                        <button type="submit" class="btn btn-info">
-                            <span th:text="${task.complete ? 'Undo' : 'Complete'}"></span>
-                        </button>
-                    </form>
-                    <form action="/delete/{task.id}" method="post" th:action="@{/delete/{id}(id=${task.id})}">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </span>
-            </div>
-        </li>
-    </ul>
-</div>
+            <!-- Task List -->
+            <ul class="list-group mt-4">
+                <li class="list-group-item d-flex justify-content-between align-items-center" th:each="task : ${tasks}">
+                    <!-- Task Title -->
+                    <span th:text="${task.title}" th:classappend="${task.complete} ? 'completed' : ''"></span>
+
+                    <!-- Action Buttons -->
+                    <div class="button-group">
+                        <!-- Complete / Undo Button -->
+                        <form action="/toggleComplete/{task.id}" method="post" th:action="@{/toggleComplete/{id}(id=${task.id})}">
+                            <button type="submit" class="btn" th:classappend="${task.complete} ? 'btn-warning' : 'btn-info'">
+                                <span th:text="${task.complete ? 'Undo' : 'Complete'}"></span>
+                            </button>
+                        </form>
+
+                        <!-- Delete Button -->
+                        <form action="/delete/{task.id}" method="post" th:action="@{/delete/{id}(id=${task.id})}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </center>
 </body>
 </html>
