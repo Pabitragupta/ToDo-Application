@@ -28,3 +28,22 @@ This application allows users to **add, mark as complete, undo, and delete tasks
 ---
 
 ## 📂 Project Structure
+ToDo_App/
+│── src/main/java/com/example/ToDo_App/
+│   ├── controller/         # Handles HTTP requests
+│   │   ├── TaskController.java
+│   ├── service/            # Business logic
+│   │   ├── TaskService.java
+│   ├── model/              # Task entity
+│   │   ├── Task.java
+│   ├── repository/         # Data persistence (JPA Repository)
+│   │   ├── TaskRepository.java
+│── src/main/resources/
+│   ├── templates/          # Thymeleaf HTML files
+│   │   ├── index.html
+│   ├── static/css/         # Custom CSS files
+│   │   ├── styles.css
+│── application.properties  # Database & Server configurations
+│── pom.xml                 # Dependencies
+
+---
